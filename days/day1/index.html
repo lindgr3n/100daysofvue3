@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 1 - 100DaysOfVue3</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div id="counter">
+            Counter: {{ counter }}
+        </div>
+        <div id="counter2">
+            Counter: <my-label>{{counter}}</my-label>
+            <my-button @click="() => counter++">Increase</my-button>
+        </div>
+    </div>
+
+    <script>
+        const Counter = {
+            data() {
+                return {
+                    counter: 0
+                }
+            },
+            mounted() {
+                setInterval(() => {
+                    this.counter++
+                }, 1000)
+            }
+        }
+
+        Vue.createApp(Counter).mount('#counter')
+
+        const Counter2 = {
+            data() {
+                return {
+                    counter: 0
+                }
+            }
+        }
+
+        const app = Vue.createApp(Counter2)
+
+        const MyButton = {
+            template: "<button><slot></slot></button>"
+        }
+        const MyLabel = {
+            props: {
+                text: {
+                    type: String,
+                    default: ""
+                }
+            },
+            template: "<p style='font-weight: \"bold\"'><slot></slot></p>"
+        }
+        app.component('my-button', MyButton)
+        app.component('my-label', MyLabel)
+
+        app.mount('#counter2')
+    </script>
+</body>
+
+</html>
