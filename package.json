@@ -1,0 +1,23 @@
+{
+  "name": "100daysofvue3",
+  "version": "1.0.0",
+  "description": "100 days left of the year, lets go",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/lindgr3n/100daysofvue3.git"
+  },
+  "keywords": [
+    "Vue3",
+    "100dayschallange"
+  ],
+  "author": "Johan Lindgren",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lindgr3n/100daysofvue3/issues"
+  },
+  "homepage": "https://github.com/lindgr3n/100daysofvue3#readme"
+}
