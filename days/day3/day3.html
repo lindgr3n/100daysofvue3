@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 2 - 100DaysOfVue3</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="composition">
+        <p>Will it {{compositionParameter}}</p>
+        <p>And the external value is {{externalValue}}</p>
+        <p>The async value: {{asyncValue}}</p>
+    </div>
+    <script>
+        function externalFunction() {
+            return "WOHOO"
+        }
+
+        function asyncExternalFunction() {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve('One second delay')
+                }, 1000);
+            })
+        }
+
+        const MyCompositionComponent = {
+            setup() {
+                const compositionParameter = "work!"
+                const externalValue = externalFunction();
+                let asyncValue = "";
+                const fetchMethod = async () => {
+                    asyncValue = await asyncExternalFunction()
+                }
+                
+                // Everything here will be exposed inside our component
+                return {compositionParameter, externalValue, asyncValue, fetchMethod}
+            }
+        }
+
+        Vue.createApp(MyCompositionComponent).mount('#composition')
+    </script>
+</body>
+</html>
