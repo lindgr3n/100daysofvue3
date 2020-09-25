@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 4 - 100DaysOfVue3</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <script>
+        function changeData(a, b) {
+            a = a * 10
+            b.item = "changed"
+        }
+        const number = 10;
+        const obj = {item: "unchanged"};
+        const objRef = Vue.ref(obj)
+        changeData(number, objRef.value)
+
+        console.log(number)
+        console.log(obj)
+    </script>
+</body>
+</html>
