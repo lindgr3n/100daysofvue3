@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 4 - 100DaysOfVue3</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <script>
+        function changeData(str, num, ref) {
+            str = "b"
+            num = 2
+            ref.value = 2;
+            console.log('Inside', str, num, ref.value);
+        }
+        const number = 1;
+        const text = "a"
+        const numberRef = Vue.ref(1);
+
+        console.log('Before', number, text, numberRef.value)
+        changeData(number, text, numberRef)
+        console.log('After', number, text, numberRef.value)
+
+        function changeDataObj(obj, objRef) {
+            obj.number = 2
+            obj.text = "b"
+            objRef.value.number = 2
+            objRef.value.text = "b"
+            console.log('Inside', obj, objRef.value);
+        }
+        const obj = { number: 1, text: "a" };
+        const objRef = Vue.ref({ number: 1, text: "a" });
+
+        console.log('Before', obj, objRef.value)
+        changeDataObj(obj, objRef)
+        console.log('After', obj, objRef.value)
+    </script>
+</body>
+
+</html>
