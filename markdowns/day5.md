@@ -12,4 +12,4 @@ So the basic example shows that re-declare the variables inside the function wil
 
 So how do this work with objects? When we pass in a object it will pass it with reference so when we change the data inside the function it will affect the initial declaration.
 
-So how will ref help us here? When we declare our number using `ref` and update its value we will update the declared value. That is we can know that changing our values will correctly be reactive.
+So how will ref help us here? When we declare our number using `ref` and update its value we will update the declared value. That is how we can know that changing our values will correctly be reactive.
