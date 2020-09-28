@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 7 - 100DaysOfVue3</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="app">
+        <p>{{counter}}</p>
+        <button @click="increase">Increase</button>
+        <button @click="decrease">Decrease</button>
+    </div>
+    <script>
+        const App = {
+            setup() {
+                const counter = Vue.ref(0);
+                const increase = () => { counter.value++ }
+                const decrease = () => { counter.value-- }
+
+                Vue.watch(counter, (newValue, oldValue) => {
+                    console.log('Watched', { counter: counter.value, newValue, oldValue });
+                })
+
+                const intializeCounter = () => counter.value = 10;
+                Vue.onMounted(intializeCounter)
+
+                return { counter, increase, decrease }
+            }
+        }
+        Vue.createApp(App).mount('#app')
+    </script>
+</body>
+
+</html>
