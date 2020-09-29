@@ -12,9 +12,9 @@ Lets take a look and see whats [notable](https://v3.vuejs.org/guide/migration/in
 * Fragments
 * Emits Component Option
 * createRenderer API from @vue/runtime-core to create custom renderers
-* SFC Composition API Syntax Sugar (<script setup>) experimental
-* SFC State-driven CSS Variables (<style vars>) experimental
-* SFC <style scoped> can now include global rules or rules that target only slotted content
+* SFC Composition API Syntax Sugar (`<script setup>`) experimental
+* SFC State-driven CSS Variables (`<style vars>`) experimental
+* SFC `<style scoped>` can now include global rules or rules that target only slotted content
 
 Well think this can take a while so i think i know what i will do the upcoming two weeks :P
 
