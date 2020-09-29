@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 8 - 100DaysOfVue3</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="app">
+        <p>{{counter}}</p>
+        <p>Double: {{counterDouble}}</p>
+        <button @click="increase">Increase</button>
+        <button @click="decrease">Decrease</button>
+        <counter />
+    </div>
+    <script>
+        function composableCounter() {
+            const counter = Vue.ref(0);
+            const increase = () => { counter.value++ }
+            const decrease = () => { counter.value-- }
+            const counterDouble = Vue.computed(() => counter.value * 2)
+
+            Vue.watch(counter, (newValue, oldValue) => {
+                console.log('Watched', { counter: counter.value, newValue, oldValue });
+            })
+
+            const intializeCounter = () => counter.value = 10;
+            Vue.onMounted(intializeCounter)
+            return { counter, increase, decrease, counterDouble }
+        }
+
+        const SecondCounter = {
+            template: `<p>{{counter}}</p><button @click="increase">Increase</button><button @click="decrease">Decrease</button>`,
+            setup() {
+                return { ...composableCounter() }
+            }
+        }
+
+        const App = {
+            setup() {
+                const { counter, increase, decrease, counterDouble } = composableCounter()
+                return { counter, increase, decrease, counterDouble }
+            }
+        }
+        const vm = Vue.createApp(App)
+        vm.component('counter', SecondCounter)
+        vm.mount('#app')
+    </script>
+</body>
+
+</html>
