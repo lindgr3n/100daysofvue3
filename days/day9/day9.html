@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 9 - 100DaysOfVue3</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+        .modal {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, .5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            width: 300px;
+            height: 300px;
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h3>Tooltips with Vue 3 Teleport</h3>
+        <div>
+            <modal-button></modal-button>
+            <modal-button-teleport></modal-button-teleport>
+            <my-teleport to="body">
+                <div>Test</div>
+            </my-teleport>
+        </div>
+    </div>
+    <script>
+
+
+        const App = {
+            setup() {
+
+            }
+        }
+        const vm = Vue.createApp(App)
+
+        vm.component('modal-button', {
+            template: `
+                    <button @click="modalOpen = true">
+                        Open full screen modal!
+                    </button>
+
+                    <div v-if="modalOpen" class="modal">
+                    <div>
+                        I'm a modal! 
+                        <button @click="modalOpen = false">
+                            Close
+                        </button>
+                    </div>
+                    </div>
+                `,
+            data() {
+                return {
+                    modalOpen: false
+                }
+            }
+        })
+
+        vm.component('modal-button-teleport', {
+            template: `
+                <button @click="modalOpen = true">
+                    Open full screen modal! (With teleport!)
+                </button>
+
+                <teleport to="body">
+                    <div v-if="modalOpen" class="modal">
+                        <div>
+                        I'm a teleported modal! 
+                        (My parent is "body")
+                        <button @click="modalOpen = false">
+                            Close
+                        </button>
+                        </div>
+                    </div>
+                </teleport>
+            `,
+            data() {
+                return {
+                    modalOpen: false
+                }
+            }
+        })
+
+        vm.component('my-teleport', {
+            template: '<div><slot/></div>',
+            props: {
+                to: {
+                    type: String
+                }
+            },
+            mounted() {
+                const parent = document.querySelector(this.to);
+                const children = this.$el.children;
+                console.log(children);
+                parent.appendChild(children[0])
+                this.$el.remove()
+            }
+        })
+
+        vm.mount('#app')
+    </script>
+</body>
+
+</html>
