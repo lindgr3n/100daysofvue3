@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 11 - 100DaysOfVue3</title>
+    <script src="https://unpkg.com/vue@next"></script>
+
+</head>
+
+<body>
+    <div id="app">
+        <my-component @submit="() => console.log('Submit emitted')" @in-focus="() => console.log('In Focus emitted')" />
+    </div>
+    <script>
+
+
+        const App = {
+            setup() {
+                return { console: console }
+            }
+        }
+        const vm = Vue.createApp(App)
+
+        vm.component('my-component', {
+            // emits: ['submit', 'in-focus'],   // Gives a warning
+            // emits: ['submit', 'in-focus'],   // No validation
+            emits: {
+                submit: null,
+                "in-focus": null,
+                "submit-form": ({ text }) => {
+                    console.log(text);
+                    if (!text) {
+                        console.log('Invalid validation');
+                        return false;
+                    }
+                    console.log('Valid validation');
+                    return true;
+                }
+            },
+            template: `
+                    <button @click="() => $emit('submit')">
+                        Trigger submit!
+                    </button>
+                    <input placeholder="Focus to trigger in-focus" @focus="() => $emit('in-focus')" v-model="text" />
+                    <button @click="() => $emit('submit-form', {text})">Event validation</button>
+                `,
+            setup() {
+                return { text: "" }
+            }
+        })
+
+        vm.mount('#app')
+    </script>
+</body>
+
+</html>
