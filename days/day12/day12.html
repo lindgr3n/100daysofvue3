@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 12 - 100DaysOfVue3</title>
+    <script src="https://unpkg.com/vue@next"></script>
+
+</head>
+
+<body>
+    <div id="app">
+        <p>{{firstName}} - {{lastName}}</p>
+        <my-component v-model:first-name="firstName" v-model:last-name="lastName" />
+    </div>
+    <script>
+
+
+        const App = {
+            setup() {
+                const firstName = Vue.ref("Test");
+                const lastName = Vue.ref("Testsson");
+                return { firstName, lastName }
+            }
+        }
+        const vm = Vue.createApp(App)
+
+        vm.component('my-component', {
+            props: {
+                firstName: {
+                    type: String
+                },
+                lastName: {
+                    type: String
+                }
+            },
+            template: `
+                    <input type="text" :value="firstName" @input="$emit('update:firstName', $event.target.value)" />
+                    <input type="text" :value="lastName" @input="$emit('update:lastName', $event.target.value)" />
+                `,
+        })
+
+        vm.mount('#app')
+    </script>
+</body>
+
+</html>
