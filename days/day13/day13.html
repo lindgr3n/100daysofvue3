@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 13 - 100DaysOfVue3</title>
+    <script src="https://unpkg.com/vue@next"></script>
+
+</head>
+
+<body>
+    <div id="app">
+        <p>{{firstName}} - {{lastName}}</p>
+        <my-component v-model:first-name.capitalize="firstName" v-model:last-name="lastName" />
+    </div>
+    <script>
+
+
+        const App = {
+            setup() {
+                const firstName = Vue.ref("Test");
+                const lastName = Vue.ref("Testsson");
+                return { firstName, lastName }
+            }
+        }
+        const vm = Vue.createApp(App)
+
+        vm.component('my-component', {
+            props: {
+                firstName: {
+                    type: String
+                },
+                lastName: {
+                    type: String
+                },
+                firstNameModifiers: {
+                    type: Object,
+                    default: () => { }
+                }
+            },
+            created() {
+                console.log(this.firstNameModifiers);
+            },
+            methods: {
+                emitFirstNameValue(evt) {
+                    console.log(evt);
+                    const value = evt.target.value;
+                    if (this.firstNameModifiers) {
+                        const value = value.charAt(0).toUpperCase() + value.slice(1)
+                        this.$emit('update:firstName', value)
+                    }
+                }
+            },
+            template: `
+                    <input type="text" :value="firstName" @input="emitFirstNameValue" />
+                    <input type="text" :value="lastName" @input="$emit('update:lastName', $event.target.value)" />
+                `,
+        })
+
+        vm.mount('#app')
+    </script>
+</body>
+
+</html>
