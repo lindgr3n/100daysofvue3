@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 15 - 100DaysOfVue3</title>
+    <script src="https://unpkg.com/vue@next"></script>
+
+</head>
+
+<body>
+    <div id="app">
+        <my-component text="test" />
+    </div>
+    <script>
+
+
+        const App = {
+
+        }
+        const vm = Vue.createApp(App)
+
+        vm.component('my-component', {
+            props: {
+                text: {
+                    type: String
+                }
+            },
+            setup(props) {
+                console.log(props.text);
+            },
+
+            template: `<p>{{text}}</p>`,
+        })
+
+        vm.mount('#app')
+    </script>
+</body>
+
+</html>
