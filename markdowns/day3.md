@@ -8,7 +8,7 @@ So yesterday we started to talk about the [Composition API](https://v3.vuejs.org
 
 The entry point for the Composition API for a component is something called `setup` this is called after the props have been resolved.
 
-NOTE: That the setup will not know about the `this` scope, so you will not be able to use `computed properties`, `local state` or `methods`. Hmm so which purpose do the `setup` then fulfils?
+NOTE: That the setup will not know about the `this` scope, so you will not be able to use `computed properties`, `local state` or `methods`. Hmm so which purpose do the `setup` then fulfill?
 
 Thanks documentation! So the `setup` will take two parameters as input `props` and `context`. Not sure about context but we get to know about it late :)
 
