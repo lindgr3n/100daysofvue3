@@ -4,7 +4,7 @@ date: 20201010
 
 # Day 19 - SFC sugar
 
-So lets continue our journey by using the [example project](https://codesandbox.io/s/100daysofvue3-9yql8?file=/src/App.vue) we had yesterday. 
+So lets continue our journey by using the [example project](https://codesandbox.io/s/100daysofvue3-9yql8?file=/src/App.vue) we had yesterday.
 
 This time we will checkout the lesson learned in day 16 - Scoped styles.
 
