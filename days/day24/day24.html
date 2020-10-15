@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 24 - 100DaysOfVue3</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <p>{{counter}}</p><button @click="evt => counter++">Increase</button>
+        <p>{{text}}</p>
+        <my-input v-model:text="text" />
+    </div>
+
+    <script>
+
+
+        const App = {
+            data() {
+                return {
+                    counter: 0,
+                    text: "test"
+                }
+            }
+        }
+
+        const MyInput = {
+            props: ['text'],
+            template: `
+                <input
+                :value="text"
+                @input="$emit('update:text', $event.target.value)"
+                >
+            `
+        }
+
+        const app = Vue.createApp(App)
+        app.component('my-input', MyInput)
+        app.mount('#app')
+    </script>
+</body>
+
+</html>
