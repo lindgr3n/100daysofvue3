@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 27 - 100DaysOfVue3</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div v-if="hidden" v-for="id in idList">{{id}}</div>
+        <div v-else v-for="id in idList2">{{id}}</div>
+        <button @click="hidden = !hidden">Switch</button>
+    </div>
+
+    <script>
+        const App = {
+            data() {
+                return {
+                    idList: [1, 2, 3, 4, 5],
+                    idList2: [100, 200, 300, 400, 500],
+                    hidden: false
+                }
+            }
+        }
+
+        const app = Vue.createApp(App)
+        app.mount('#app')
+    </script>
+</body>
+
+</html>
