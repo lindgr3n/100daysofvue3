@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 28 - 100DaysOfVue3</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+        #attr {
+            color: #00f
+        }
+
+        #v-bind {
+            color: #f00
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <p id="attr" v-bind="{ id: 'v-bind' }">v-bind last</p>
+        <p v-bind="{ id: 'v-bind' }" id="attr">v-bind first</p>
+    </div>
+
+    <script>
+        const App = {
+
+        }
+
+        const app = Vue.createApp(App)
+        app.mount('#app')
+    </script>
+</body>
+
+</html>
