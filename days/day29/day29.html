@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 29 - 100DaysOfVue3</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div v-for="item in list" :ref="setItemRef">{{item.name}}</div>
+    </div>
+
+    <script>
+        const App = {
+            setup() {
+                let itemRefs = []
+                const setItemRef = el => {
+                    itemRefs.push(el)
+                }
+                Vue.onBeforeUpdate(() => {
+                    itemRefs = []
+                })
+                Vue.onUpdated(() => {
+                    console.log("test", itemRefs)
+                })
+                const list = [{ name: "1" }, { name: "2" }]
+                return {
+                    list,
+                    itemRefs,
+                    setItemRef
+                }
+            }
+        }
+
+        const app = Vue.createApp(App)
+        app.mount('#app')
+    </script>
+</body>
+
+</html>
