@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 30 - 100DaysOfVue3</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div style="display: flex; flex-direction: column;">
+            <dynamic-heading v-for="level in levels" :level="level">Vue rocks!</dynamic-heading>
+        </div>
+    </div>
+
+    <script>
+        const App = {
+            setup() {
+                const levels = [1, 2, 3, 4];
+                return { levels }
+            }
+        }
+
+        const DynamicHeading = (props, context) => {
+            return Vue.h(`h${props.level}`, context.attrs, context.slots)
+        }
+        DynamicHeading.props = ['level']
+
+        const app = Vue.createApp(App)
+        app.component('dynamic-heading', DynamicHeading)
+        app.mount('#app')
+    </script>
+</body>
+
+</html>
