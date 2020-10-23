@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 30 - 100DaysOfVue3</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="app">
+        <dynamic-heading level="1"></dynamic-heading>
+        <dynamic-element type="div">Vue rocks!</dynamic-element>
+        <render-component>Increase - </render-component>
+
+    </div>
+
+    <script>
+        const App = {
+
+        }
+
+        const DynamicHeading = (props, context) => {
+            return Vue.h(`h${props.level}`, context.attrs, context.slots)
+        }
+        DynamicHeading.props = ['level']
+
+        const RenderComponent = {
+            setup(props, { slots, attrs, emit }) {
+                const state = Vue.reactive({
+                    count: 0
+                })
+
+                function increment() {
+                    state.count++
+                }
+
+                // return the render function
+                return () =>
+                    Vue.h(
+                        'button',
+                        {
+                            onClick: increment
+                        },
+                        state.count
+                    )
+            }
+        }
+
+        const app = Vue.createApp(App)
+        app.component('dynamic-heading', DynamicHeading)
+        app.component('render-component', RenderComponent)
+        app.mount('#app')
+    </script>
+</body>
+
+</html>
