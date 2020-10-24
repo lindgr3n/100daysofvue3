@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 30 - 100DaysOfVue3</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="app">
+        <custom-component>
+            <slot name="header">header</slot>
+            test
+        </custom-component>
+    </div>
+
+    <script>
+        const App = {
+
+        }
+
+        // const LayoutComponent = (props, context) => {
+        //     return Vue.h('div', context.attrs, context.slots)
+        // }
+        const LayoutComponent = {
+            setup(props, context) {
+                return () => Vue.h('div', {}, {})
+            }
+        }
+
+        const CustomComponent = (props, context) => {
+            return Vue.h(LayoutComponent, {}, {
+                header: () => h('div', this.header),
+                content: () => h('div', this.content),
+                default: () => h('div', {}, this.default)
+            })
+        }
+
+        const app = Vue.createApp(App)
+        app.component('custom-component', CustomComponent)
+        app.component('layout-component', LayoutComponent)
+        app.mount('#app')
+    </script>
+</body>
+
+</html>
