@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 34 - 100DaysOfVue3</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="app">
+        <render-component>test</render-component>
+        <render-component2>test2</render-component2>
+        <multi-render-component>multi</multi-render-component>
+        <multi-render-component-children>multi</multi-render-component-children>
+        <layout-component>
+            t
+            <slot-component>
+                <template v-slot="header">Test</template>
+                test
+            </slot-component>
+        </layout-component>
+    </div>
+
+    <script>
+        const App = {
+
+        }
+
+        const RenderComponent = (props, context) => {
+            return Vue.h('div', {}, context.slots)
+        }
+        const RenderComponent2 = {
+            render() {
+                return Vue.h('div', {}, this.$slots.default())
+            }
+        }
+        const MultiRenderComponent = (props, context) => {
+            return Vue.h('div', { style: "display: flex; " }, [Vue.h('div', { style: "padding: 1em;" }, 'test inner'), Vue.h('div', {}, 'test inner 2')])
+        }
+        const MultiRenderComponentChildren = {
+            render() {
+                return Vue.h(RenderComponent, {}, [Vue.h(RenderComponent2, {}, 'subtext')])
+            }
+        }
+
+        const LayoutComponent = (props, context) => {
+            return Vue.h('div', { style: "display: flex;" }, context.slots)
+        }
+
+        const SlotComponent = {
+            render() {
+                return Vue.h('div', {}, { default: (props) => Vue.h('p', {}, 'text') })
+            }
+        }
+
+
+        const app = Vue.createApp(App)
+        app.component('render-component', RenderComponent)
+        app.component('render-component2', RenderComponent2)
+        app.component('multi-render-component', MultiRenderComponent)
+        app.component('multi-render-component-children', MultiRenderComponentChildren)
+        app.component('layout-component', LayoutComponent)
+        app.component('slot-component', SlotComponent)
+        app.mount('#app')
+    </script>
+</body>
+
+</html>
