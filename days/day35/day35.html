@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 34 - 100DaysOfVue3</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+        .red {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <layout-component>
+            <template v-slot:header>
+                <test-component class="red">WOHOO</test-component>
+            </template>
+            <template v-slot:default>
+                Content
+            </template>
+        </layout-component>
+        <layout-render>
+            <template v-slot:header>
+                <test-render class="red">WOHOO</test-render>
+            </template>
+            <template v-slot:default>
+                Render content
+            </template>
+        </layout-render>
+        <layout-render-usage></layout-render-usage>
+    </div>
+
+    <script>
+        const App = {
+
+        }
+
+        const TestComponent = {
+            template: `<h1><slot></slot></h1>`
+        }
+
+        const TestRender = {
+            render() {
+                return Vue.h('h1', {}, this.$slots.default())
+            }
+        }
+
+        const LayoutComponent = {
+            template: `<div style="display: flex; flex-direction: column;"><slot name="header"></slot><slot></slot></div>`
+        }
+
+        const LayoutRender = {
+            render() {
+                return Vue.h('div', {}, [Vue.h('slot', { name: "header" }, this.$slots.header()), Vue.h('slot', {}, this.$slots.default())])
+            }
+        }
+
+        const LayoutRenderUsage = {
+            render() {
+                return Vue.h(LayoutComponent, {}, { header: () => Vue.h(TestRender, { class: "red" }, 'WOHOO'), default: () => 'Render usage Content' })
+            }
+        }
+
+
+        const app = Vue.createApp(App)
+        app.component('test-component', TestComponent)
+        app.component('layout-component', LayoutComponent)
+        app.component('test-render', TestRender)
+        app.component('layout-render', LayoutRender)
+        app.component('layout-render-usage', LayoutRenderUsage)
+        app.mount('#app')
+    </script>
+</body>
+
+</html>
