@@ -10,6 +10,6 @@ The render function `h` is something we can use to generate VNodes that Vue uses
 
 Here we have the first attribute `tag` that is a html element or a component.
 Second we have the props that is the things we e.g use in the template.
-Third we have the children that can be a plain string, an array of VNodes or a object for slots. 
+Third we have the children that can be a plain string, an array of VNodes or a object for slots.
 
 Playing around I'm starting to get into the structure. The thing i do not manage to get is the slot content. Think we dig into this more tomorrow.

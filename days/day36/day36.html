@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 36 - 100DaysOfVue3</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="app">
+        <my-component @click="onClick">Click me</my-component>
+    </div>
+
+    <script>
+        const App = {
+            setup() {
+                const onClick = () => console.log('WOHOO')
+                return { onClick }
+
+            }
+        }
+
+        const MyComponent = {
+            template: `<button v-bind="$attrs"><slot></slot></button>`
+        }
+
+        const app = Vue.createApp(App)
+        app.component('my-component', MyComponent)
+
+        app.mount('#app')
+    </script>
+</body>
+
+</html>
