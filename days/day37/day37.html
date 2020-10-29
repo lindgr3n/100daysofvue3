@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 37 - 100DaysOfVue3</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="app">
+        <my-component class="red" />
+    </div>
+
+    <script>
+        const App = {
+
+        }
+
+        const MyComponent = {
+            inheritAttrs: false,
+            template: `
+                <label>
+                    <input type="text" v-bind="$attrs" />
+                </label>
+            `
+        }
+
+        const app = Vue.createApp(App)
+        app.component('my-component', MyComponent)
+
+        app.mount('#app')
+    </script>
+</body>
+
+</html>
