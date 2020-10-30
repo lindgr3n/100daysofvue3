@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 39 - 100DaysOfVue3</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/lodash@4.17.20/lodash.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <save-button @timed="() => count++">Click</save-button>
+        <p>Click timedout: {{count}}</p>
+    </div>
+
+    <script>
+        const App = {
+            setup() {
+                const count = Vue.ref(0)
+                return { count }
+            }
+        }
+        const app = Vue.createApp(App)
+
+        app.component('save-button', {
+            created() {
+                // Debouncing with Lodash
+                this.debouncedClick = _.debounce(this.click, 500)
+            },
+            unmounted() {
+                // Cancel the timer when the component is removed
+                this.debouncedClick.cancel()
+            },
+            methods: {
+                click() {
+                    // ... respond to click ...
+                    console.log('Timed');
+                    this.$emit('timed')
+                }
+            },
+            template: `
+                <button @click="debouncedClick">
+                Save
+                </button>
+            `
+        })
+
+        app.mount('#app')
+    </script>
+</body>
+
+</html>
