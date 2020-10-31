@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 40 - 100DaysOfVue3</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/lodash@4.17.20/lodash.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <auto-search @search="evt => search = evt.target.value"></auto-search>
+        <p>Searched: {{search}}</p>
+    </div>
+
+    <script>
+        const App = {
+            setup() {
+                const search = Vue.ref("")
+                return { search }
+            }
+        }
+        const app = Vue.createApp(App)
+
+        app.component('auto-search', {
+            created() {
+                // Debouncing with Lodash
+                this.debouncedChange = _.debounce(this.change, 500)
+            },
+            unmounted() {
+                // Cancel the timer when the component is removed
+                this.debouncedChange.cancel()
+            },
+            methods: {
+                change(evt) {
+                    // ... respond to click ...
+                    console.log('Timed');
+                    this.$emit('search', evt)
+                }
+            },
+            template: `<input type="text" @input="debouncedChange" />`
+        })
+
+        app.mount('#app')
+    </script>
+</body>
+
+</html>
