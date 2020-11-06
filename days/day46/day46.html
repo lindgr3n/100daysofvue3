@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 46 - 100DaysOfVue3</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/lodash@4.17.20/lodash.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <todo-list></todo-list>
+    </div>
+
+    <script>
+        const app = Vue.createApp({})
+
+        app.component('todo-list', {
+            data() {
+                return {
+                    todos: ['Feed a cat', 'Buy tickets']
+                }
+            },
+            provide: function () {
+                return {
+                    user: 'John Doe',
+                    todoLength: this.todos.length
+                }
+            },
+            // provide: {
+            //     user: 'John Doe',
+            //     // Uncaught TypeError: Cannot read property 'length' of undefined
+            //     todoLength: this.todos.length
+            // },
+            template: `
+                <div>
+                {{ todos.length }}
+                <!-- rest of the template -->
+                <todo-list-statistics></todo-list-statistics>
+                </div>
+            `
+        })
+
+        app.component('todo-list-statistics', {
+            inject: ['user', 'todoLength'],
+            created() {
+                console.log(`Injected property: ${this.user}`) // > Injected property: John Doe
+                console.log(`Injected property: ${this.todoLength}`) // > Injected property: John Doe
+            },
+            // render() {
+            //     return null;
+            // }
+        })
+
+        app.mount('#app')
+    </script>
+</body>
+
+</html>
