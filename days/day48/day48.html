@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 48 - 100DaysOfVue3</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/lodash@4.17.20/lodash.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <my-textbox></my-textbox>
+    </div>
+
+    <script>
+        const app = Vue.createApp({})
+
+        const compositionFocus = {
+            setup(props) {
+
+                onMounted = () => {
+                    const refTarget = props.target
+                    if (this.$refs[target]) {
+                        this.$refs[target].focus()
+                    }
+                }
+            }
+        }
+
+        app.component('my-textbox', {
+            mounted() {
+                this.$refs.input.focus()
+            },
+            template: `<input ref="input" />`
+        })
+
+        app.mount('#app')
+    </script>
+</body>
+
+</html>
