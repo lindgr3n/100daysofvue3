@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 49 - 100DaysOfVue3</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/lodash@4.17.20/lodash.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <my-random></my-random>
+    </div>
+
+    <script>
+        const app = Vue.createApp({})
+
+        const compositionFetchRandomNumber = () => {
+            function fetchNumber() {
+                return new Promise(resolve => {
+                    setTimeout(() => {
+                        resolve(Math.round(Math.random() * 100))
+                    }, 1000)
+                })
+            }
+            return { fetchNumber }
+        }
+
+        app.component('my-random', {
+            setup() {
+                const { fetchNumber } = compositionFetchRandomNumber();
+                const randomNumber = Vue.ref(0);
+                const isLoading = Vue.ref(false);
+                return { randomNumber, isLoading, fetchNumber }
+            },
+            mounted() {
+                this.getNumber();
+            },
+            methods: {
+                async getNumber() {
+                    this.isLoading = true;
+                    console.log(this.randomNumber)
+                    this.randomNumber = await this.fetchNumber()
+                    this.isLoading = false;
+                }
+            },
+            template: `<div>{{randomNumber}}</div><button @click="getNumber">{{isLoading ? 'Loading...' : 'Get number'}}</button>`
+        })
+
+        app.mount('#app')
+    </script>
+</body>
+
+</html>
