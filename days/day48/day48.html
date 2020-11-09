@@ -11,29 +11,35 @@
 
 <body>
     <div id="app">
-        <my-textbox></my-textbox>
+        <my-random></my-random>
     </div>
 
     <script>
         const app = Vue.createApp({})
 
-        const compositionFocus = {
+        const compositionFetchRandomNumber = {
             setup(props) {
-
-                onMounted = () => {
-                    const refTarget = props.target
-                    if (this.$refs[target]) {
-                        this.$refs[target].focus()
-                    }
+                const fetchNumber = () => {
+                    return new Promise(resolve => {
+                        setTimeout(() => {
+                            resolve(100)
+                        }, 1000)
+                    })
                 }
+                return { fetchNumber }
             }
         }
 
-        app.component('my-textbox', {
-            mounted() {
-                this.$refs.input.focus()
+        app.component('my-random', {
+            data() {
+                return { randomNumber: 0 }
             },
-            template: `<input ref="input" />`
+            async mounted() {
+                console.log(compositionFetchRandomNumber)
+                const { fetchNumber } = compositionFetchRandomNumber.setup();
+                this.randomNumber = await fetchNumber()
+            },
+            template: `<div>{{randomNumber}}</div><button>Get number</button>`
         })
 
         app.mount('#app')
