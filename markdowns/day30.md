@@ -36,7 +36,7 @@ export default {
 </script>
 ```
 
-Doing the same thing in Vue 3 not looks like
+Doing the same thing in Vue 3 now looks like
 
 ```Vue
 <template>
