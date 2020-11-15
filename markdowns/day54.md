@@ -60,4 +60,3 @@ Lets create a configuration file and
 and then running `npx tsc tsconfig.json`. No difference? Hmm...
 
 Running `npx tsc --project tsconfig.json` it works. So not sure where `tsc` gets its configuration file default.
-
