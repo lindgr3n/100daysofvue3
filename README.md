@@ -4,4 +4,4 @@
 
 Join me on my trip and see what we can accomplish and learn.
 
-![Progress](https://progress-bar.dev/56/)
+![Progress](https://progress-bar.dev/57/)
