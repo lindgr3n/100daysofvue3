@@ -28,6 +28,13 @@ var BoardManager = /** @class */ (function () {
             }
         }
     };
+    BoardManager.prototype.getBoard = function () {
+        return this.board;
+    };
+    BoardManager.prototype.getBoardById = function (_a) {
+        var x = _a.x, y = _a.y;
+        return this.board[y * this.HEIGHT + x];
+    };
     return BoardManager;
 }());
 var BoardCell = /** @class */ (function () {
@@ -38,28 +45,72 @@ var BoardCell = /** @class */ (function () {
     BoardCell.prototype.generate = function () {
         var element = document.createElement('div');
         element.classList.add('cell');
-        element.classList.add("cell-" + this.x + "x" + this.y);
+        element.dataset.x = "" + this.x;
+        element.dataset.y = "" + this.y;
+        this.element = element;
         return element;
     };
     BoardCell.prototype.clicked = function (player) {
+        if (this.clickedBy) {
+            return false;
+        }
         this.clickedBy = player;
+        this.element.classList.add(player);
+        return true;
+    };
+    BoardCell.prototype.getClickedBy = function () {
+        return this.clickedBy;
     };
     return BoardCell;
 }());
 var GameManager = /** @class */ (function () {
     function GameManager() {
+        this.winConditon = [
+            [[0, 0], [1, 0], [2, 0]],
+            [[0, 1], [1, 1], [2, 2]],
+            [[0, 3], [1, 3], [2, 3]],
+            [[0, 0], [0, 1], [0, 2]],
+            [[1, 0], [2, 0], [2, 2]],
+            [[2, 0], [2, 1], [2, 2]],
+            [[1, 0], [1, 1], [2, 2]],
+            [[0, 2], [1, 1], [0, 0]],
+        ];
         this.boardManager = new BoardManager({ width: 3, height: 3 });
         var appElement = document.querySelector('#app');
         appElement.addEventListener('click', this.onClick.bind(this));
     }
     GameManager.prototype.onClick = function (evt) {
-        console.log('CLICK', evt.target);
+        var _this = this;
+        var _a = evt.target.dataset, x = _a.x, y = _a.y;
+        var cell = this.boardManager.getBoardById({ x: parseInt(x), y: parseInt(y) });
+        var player = this.isPlayerOne ? 'player1' : 'player2';
+        var accepted = cell.clicked(player);
+        if (!accepted) {
+            console.log('Occupied');
+            return;
+        }
+        // Check win condition
+        var victory = this.winConditon.some(function (cords) {
+            return cords.every(function (cord) { return _this.boardManager.getBoardById({ x: cord[0], y: cord[1] }).getClickedBy() === player; });
+        });
+        console.log('VICTORY', victory);
+        if (victory) {
+            alert('Winner: ' + player);
+        }
+        this.isPlayerOne = !this.isPlayerOne;
+        console.log('CLICK', cell, this.boardManager.getBoard());
     };
     GameManager.prototype.update = function () {
         this.render();
     };
     GameManager.prototype.render = function () {
         this.boardManager.render();
+    };
+    GameManager.prototype.haveWinner = function () {
+        this.boardManager.getBoard();
+        {
+            // Lazy man validation
+        }
     };
     return GameManager;
 }());
