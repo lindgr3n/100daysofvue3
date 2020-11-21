@@ -133,10 +133,10 @@ class GameManager {
     }
 
     haveWinner() {
-        this.boardManager.getBoard() {
-            // Lazy man validation
+        this.boardManager.getBoard()
+        // Lazy man validation
 
-        }
+
     }
 }
 
