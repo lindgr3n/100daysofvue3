@@ -2,7 +2,7 @@
 date: 20201130
 ---
 
-# Day 70 - Heroes of Vue
+# Day 70 - Star Wars App
 
 Had my talk about Vue 3 today, think it went pretty ok. Would like to have some more examples but. Hope this 100 days challenge is a good start :)
 30 days left so what could we do for the last 1/3rd. More Composition API and render functions and also Typescript. Here we just need some good small applications to build. Build small build a lot. Let's do some fun with Star Wars API.
